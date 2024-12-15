@@ -2,7 +2,8 @@
 
     This project is a recipe management application where users can create, read, update, and delete (CRUD) 
     their recipes. 
-    Users must register and log in to access the CRUD features. Without logging in, users will not be able to enter or interact with the recipe database.
+    Users must register and log in to access the CRUD features.
+    Without logging in, users will not be able to enter or interact with the recipe database.
     
      
     Features:
