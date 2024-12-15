@@ -1,0 +1,40 @@
+{% extends "vege/layout.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <form action="" method="post" class="col-6 card p-3 shadow-lg m-auto" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if messgae.tags == 'warning' %} alert-warning {% elif message.tags == 'success' %} alert-success {% elif message.tags == 'error' %} alert-danger {% endif %} alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h3 class="text-center text-warning">User Registration</h3>
+        <hr>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">First Name</label>
+            <input type="text" name="fname" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+            <input type="text" name="lname" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-success">Register</button>
+        already have an account ?
+        <a href="{% url "login_page" %}">Login</a>
+    </form>
+    
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "vege/layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <form action="" method="post" class="col-6 card p-3 shadow-lg m-auto mt-2" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if messgae.tags == 'warning' %} alert-warning {% elif message.tags == 'success' %} alert-success {% elif message.tags == 'error' %} alert-danger {% endif %} alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h3 class="text-center text-warning">Add Recipe</h3>
+        <hr>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Recipe Name</label>
+            <input type="text" name="rname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Recipe Description</label>
+            <textarea name="dname" class="form-control" id=""></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Recipe Image</label>
+            <input type="file" name="rimage" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-success">Add Recipe</button>
+    </form>
+
+    <form action="">
+        <div class="col-10 m-auto d-flex mt-3">
+            <input type="text" name="search" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <button type="submit" class="btn btn-success ms-2">Search</button>
+        </div>
+    </form>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Recipe Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% if recipes %}
+                {% for i in recipes %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.recipe_name}}</td>
+                        <td>{{i.recipe_description}}</td>
+                        <td><img src="{{i.recipe_image.url}}" alt="" style="width: 100px;"></td>
+                        <td class="d-flex">
+                            <a href="{% url 'update_recipe' id=i.id %}" class="btn btn-warning" href="">Edit</a>
+                            <a href="{% url 'delete_recipe' id=i.id %}" class="btn btn-danger ms-3" href="">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else  %}
+                <tr class="text-center">
+                    <td class="text-danger" colspan="5">No Recipes added yet !!</td>
+                </tr>
+            {% endif %}
+        </tbody>
+      </table>
+{% endblock %}

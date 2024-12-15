@@ -1,0 +1,35 @@
+{% extends "vege/layout.html" %}
+
+{% block title %}Update{% endblock %}
+
+{% block content %}
+    <form action="" method="post" class="col-6 card p-3 shadow-lg m-auto" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if messgae.tags == 'warning' %} alert-warning {% elif message.tags == 'success' %} alert-success {% elif message.tags == 'error' %} alert-danger {% endif %} alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h3 class="text-center text-warning">Update Recipe</h3>
+        <hr>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Recipe Name</label>
+            <input type="text" name="rname" value="{{recipe.recipe_name}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Recipe Description</label>
+            <textarea name="dname" class="form-control" id="">{{recipe.recipe_description}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Recipe Image</label>
+            <a href="{{recipe.recipe_image.url}}">{{recipe.recipe_image.url}}</a>
+            <input type="file" name="rimage" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-success">Update Recipe</button>
+        <a href="{% url "dashboard" %}">Back</a>
+    </form>
+    
+{% endblock %}
